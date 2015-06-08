@@ -11,23 +11,6 @@ class MonitorDirectory(watchdog.events.FileSystemEventHandler):
     def __init__(self, inv_index):
         self.__inv_index = inv_index
 
-    def add_dir(self, dir):
-        for arg, dirs, files in os.walk(dir):
-            for item in dirs:
-                if item not in self.__inv_index:
-                    continue
-                self.__inv_index[item].add(os.path.abspath(arg))
-
-    def del_dir(self, dir):
-        for arg, dirs, files in os.walk(dir):
-            for item in dirs:
-                if item not in self.__inv_index:
-                    continue
-                try:
-                    self.__inv_index[item].remove(os.path.abspath(arg))
-                except:
-                    continue
-
     def add_single_dir(self, dir):
         self.__inv_index[os.path.basename(dir)].add(os.path.dirname(dir))
 
